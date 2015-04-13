@@ -8,9 +8,11 @@ var express = require('express');
  */
 
 var app = express();
+var errors = require('./lib/errors');
 var dbInstance = require('./lib/middleware/dbInstance');
 var registerModels = require('./lib/middleware/registerModels');
 var populateAccount = require('./lib/middleware/populateAccount');
+var errorHandler = require('./lib/middleware/errorHandler');
 
 /**
  * Setup middleware
@@ -36,12 +38,7 @@ app.get('/create', function (req, res, next) {
 			console.log(err);
 		}
 		if(count >= limit) {
-			res
-				.status(403)
-				.json({
-					code: res.statusCode,
-					error: 'You have reached your project creation limits'
-				});
+			return next(new errors.ForbiddenError('Project limits reached'));
 		} else {
 			next();
 		}
@@ -54,5 +51,7 @@ app.get('/create', function (req, res) {
 		res.json(pet);
 	});
 });
+
+app.use(errorHandler);
 
 app.listen(8000);
