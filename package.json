@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon lib/app.js",
-    "start-dev": "NODE_ENV=development DEBUG=app* nodemon lib/app.js",
-    "start-prod": "NODE_ENV=production nodemon lib/app.js"
+    "dev": "NODE_ENV=development DEBUG=app* nodemon lib/app.js",
+    "prod": "NODE_ENV=production nodemon lib/cluster.js"
   },
   "author": "",
   "license": "ISC",
