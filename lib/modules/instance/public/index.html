@@ -3,17 +3,21 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Hi!</title>
-	<link rel="stylesheet" href="">
+	<title>Kitchen API</title>
+	<style>
+		body {
+		}
+	</style>
 </head>
 <body>
-	<h1 id="title">Loading...</h1>
+	<code>Kitchen API <span id="version"></span></code>
 	<script>
 		var request = new XMLHttpRequest();
 		request.open('GET','/api/', true);
 		request.onload = function() {
 			var response = JSON.parse(request.response);
-			document.getElementById('title').innerHTML = response.account.name;
+			document.title += ' v' + response.version;
+			document.getElementById('version').innerHTML = 'v' + response.version;
 		};
 		request.send();
 	</script>
